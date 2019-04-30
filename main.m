@@ -45,8 +45,8 @@ for i=1:N
         phi(i,j)=exp(-0.5*((norm(temp-center(j,:))))^2/width(j,:).^2);
     end
     train_out(i)=weight*phi(i,:)'+b;
-    e(i)=train2(i)-train_out(i);
-    weight=weight+eta*e(i)*phi(i,:);
+    err(i)=train2(i)-train_out(i);
+    weight=weight+eta*err(i)*phi(i,:);
 end
 
 %-----------test-------------%
@@ -67,15 +67,14 @@ mean_err=mean(err,2);
 
 %-----------result-----------%
 
-figure
+figure();
 plot(index_train,train2,'k');
 title(sprintf('Train data(Mackey-Glass time series with noise)'));
-%
-figure
+figure();
 plot(test2,'k');
 hold on;
 plot(test_out,'b-');
-title(sprintf('Test results(Prediction values=%d | Clusters = %d)',pre,clusterN));
+title(sprintf('Test results(Prediction values=%d & Clusters = %d)',pre,clusterN));
 legend('Actual Value',sprintf('GRBF Predicted (Average Error = %d)',mean_err),'Location','Best');
 grid minor
 
