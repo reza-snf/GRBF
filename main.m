@@ -1,13 +1,7 @@
-% The RBF training algorithm
-
-%-----------reset-----------%
-
-clear all;
-close all;
-clc;
-
-%---------initialize--------%
-
+%% ------------------------The RBF training algorithm----------------------
+%% ---------------------------------reset----------------------------------
+clear;close all;clc;
+%% -------------------------------initialize-------------------------------
 Data=mackeyglass(); %makeyglass Data input
 start_train=1;
 end_train=25000;
@@ -25,9 +19,7 @@ index_train=Data(start_train+pre:end_train,1);
 test1=Data(start_test:end_test-pre,2);
 test2=Data(start_test+pre:end_test,2);
 index_test=Data(start_test+pre:end_test,2);
-
-%------------train-----------%
-
+%% ---------------------------------train----------------------------------
 [Data_label, center, width]=kmeans(train1,clusterN);
 N=size(train1,1);
 K=size(center,1);
@@ -48,9 +40,7 @@ for i=1:N
     err(i)=train2(i)-train_out(i);
     weight=weight+eta*err(i)*phi(i,:);
 end
-
-%-----------test-------------%
-
+%% ---------------------------------test-----------------------------------
 N=size(test1,1);
 temp=zeros(1,past);
 for i=1:N
@@ -64,8 +54,7 @@ for i=1:N
 end
 total_err=sum(err,2);
 mean_err=mean(err,2);
-
-%-----------result-----------%
+%% ---------------------------------result---------------------------------
 
 figure();
 plot(index_train,train2,'k');
